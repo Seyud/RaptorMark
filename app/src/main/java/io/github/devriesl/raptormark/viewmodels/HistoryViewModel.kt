@@ -19,11 +19,27 @@ class HistoryViewModel @Inject constructor(
     var testRecords: List<TestRecord> by mutableStateOf(emptyList())
         private set
 
+    var sortByScore: Boolean by mutableStateOf(false)
+        private set
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            testRecordRepo.testRecords.collect {
-                testRecords = it
+            testRecordRepo.testRecords.collect { records ->
+                testRecords = if (sortByScore) {
+                    records.sortedByDescending { it.score }
+                } else {
+                    records.sortedByDescending { it.timestamp }
+                }
             }
+        }
+    }
+
+    fun toggleSortOrder() {
+        sortByScore = !sortByScore
+        testRecords = if (sortByScore) {
+            testRecords.sortedByDescending { it.score }
+        } else {
+            testRecords.sortedByDescending { it.timestamp }
         }
     }
 }

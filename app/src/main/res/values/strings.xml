@@ -26,6 +26,8 @@
 
     <!-- History resources -->
     <string name="test_record_date_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="sort_by_score">Sort by Score</string>
+    <string name="sort_by_date">Sort by Date</string>
 
     <!-- Setting resources -->
     <string name="dismiss_button_content">Dismiss</string>
