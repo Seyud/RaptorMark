@@ -48,16 +48,22 @@ fun RecordItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clickable { expandState = !expandState }
-                .height(48.dp)
+                .height(64.dp)
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
         ) {
-            Text(
-                text = date,
-                color = if (expandState) MaterialTheme.colorScheme.primary else LocalContentColor.current,
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.weight(1f)
-            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = date,
+                    color = if (expandState) MaterialTheme.colorScheme.primary else LocalContentColor.current,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = stringResource(R.string.calculated_scores_result_format, testRecord.score),
+                    color = LocalContentColor.current.copy(0.7f),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
             val rotate by animateFloatAsState(targetValue = if (expandState) 180f else 0f)
             Icon(
                 imageVector = Icons.Outlined.KeyboardArrowDown,

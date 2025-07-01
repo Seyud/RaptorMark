@@ -42,13 +42,17 @@ class BenchmarkViewModel @Inject constructor(
                     return@forEach
                 }
             }
+            val calculatedScore = testItems.sumOf { it.testCase.weight * (it.testResult?.calculateScore() ?: 0.0) }.toInt()
+            val finalTestRecord = TestRecord(calculatedScore).apply {
+                results = testRecord.results
+            }
             viewModelScope.launch(Dispatchers.IO) {
-                testRecordRepo.insertTestRecord(testRecord)
+                testRecordRepo.insertTestRecord(finalTestRecord)
             }
             forceStop = false
             benchmarkState = benchmarkState.copy(
                 running = false,
-                score = testItems.sumOf { it.testCase.weight * (it.testResult?.calculateScore() ?: 0.0) }.toInt()
+                score = calculatedScore
             )
         }
     }
