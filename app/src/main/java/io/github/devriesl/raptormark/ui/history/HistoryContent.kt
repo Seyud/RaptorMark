@@ -45,9 +45,9 @@ fun HistoryContent(
                 ) {
                     Text(
                         text = if (historyViewModel.sortByScore) {
-                            stringResource(R.string.sort_by_date)
-                        } else {
                             stringResource(R.string.sort_by_score)
+                        } else {
+                            stringResource(R.string.sort_by_date)
                         }
                     )
                 }
